@@ -2,15 +2,11 @@
 
 public class GameController : MonoBehaviour
 {
-	public delegate void FireProjectile(Sprite projectileSprite, float speed);
+	public delegate void FireProjectile();
+	public static event FireProjectile Fire;
 
 	private float _timer;
 	[SerializeField] private float _timeToFire;
-	public static event FireProjectile OnFireProjectile;
-
-	private void Start()
-	{
-	}
 
 	private void Update()
 	{
@@ -25,13 +21,13 @@ public class GameController : MonoBehaviour
 		}
 		else
 		{
-			Fire();
+			OnFireProjectile();
 			_timer = 0f;
 		}
 	}
 
-	private void Fire()
+	private void OnFireProjectile()
 	{
-		OnFireProjectile();
+		Fire();
 	}
 }

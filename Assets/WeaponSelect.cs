@@ -1,12 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class WeaponSelect : MonoBehaviour
 {
-	[SerializeField] private Sprite[] _projectiles;
+	[SerializeField] private GameObject[] _projectiles;
+	[SerializeField] private Text _missileTypeText;
+
+	public GameObject SelectedProjectilePrefab { get; private set; }
+
 	ProjectileType _selectedProjectile;
-	private Sprite _selectedProjectileSprite;
 
 	private enum ProjectileType
 	{
@@ -17,7 +19,9 @@ public class WeaponSelect : MonoBehaviour
 
 	void Start()
 	{
+//		_missileTypeText = GetComponent<Text>();
 		_selectedProjectile = ProjectileType.Small;
+		SelectedProjectilePrefab = _projectiles[0];
 	}
 
 	void Update()
@@ -25,24 +29,26 @@ public class WeaponSelect : MonoBehaviour
 		SelectProjectile();
 	}
 
-	private void SelectProjectile()
+	private GameObject SelectProjectile()
 	{
 		if (Input.GetKeyDown(KeyCode.Space))
 		{
-			if (_selectedProjectile == ProjectileType.Small)
+			switch (_selectedProjectile)
 			{
-				_selectedProjectile = ProjectileType.Medium;
+				case ProjectileType.Small:
+					_selectedProjectile = ProjectileType.Medium;
+					break;
+				case ProjectileType.Medium:
+					_selectedProjectile = ProjectileType.Large;
+					break;
+				case ProjectileType.Large:
+					_selectedProjectile = ProjectileType.Small;
+					break;
 			}
-			else if (_selectedProjectile == ProjectileType.Medium)
-			{
-				_selectedProjectile = ProjectileType.Large;
-			}
-			else if (_selectedProjectile == ProjectileType.Large)
-			{
-				_selectedProjectile = ProjectileType.Small;
-			}
-			_selectedProjectileSprite = _projectiles[_selectedProjectile.GetHashCode()];
-			print(_selectedProjectile + " with " + _selectedProjectileSprite);
 		}
+
+		SelectedProjectilePrefab = _projectiles[_selectedProjectile.GetHashCode()];
+		_missileTypeText.text = _selectedProjectile.ToString();
+		return SelectedProjectilePrefab;
 	}
 }

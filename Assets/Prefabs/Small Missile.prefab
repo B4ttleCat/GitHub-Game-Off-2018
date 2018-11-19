@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6757336451920299248}
   - component: {fileID: 5202891861794136078}
   m_Layer: 0
-  m_Name: Missile
+  m_Name: Small Missile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4172a5c61f5ec42c78f32e5f62e92b48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _speedMultiplier: 3
 --- !u!1 &8248520318838743579
 GameObject:
   m_ObjectHideFlags: 0
